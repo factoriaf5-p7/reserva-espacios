@@ -1,12 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { SolicitudService } from './solicitud.service';
-import { getRepositoryToken } from '@nestjs/typeorm';
-import { Solicitud } from './entities/solicitud.entity';
+import { Solicitud } from './schemas/solicitud.schema';
 import { CreateSolicitudDto } from './dtos/create-solicitud.dto';
+import { ObjectId, SchemaTypes } from 'mongoose';
+import { getModelToken } from '@nestjs/mongoose';
 
-const solicitudes: Solicitud[] = [
+const solicitudes: Array<{ _id: ObjectId } & Solicitud> = [
   {
-    id: 1,
+    _id: new SchemaTypes.ObjectId('1'),
     nombre: 'Sara',
     cargo: 'formador',
     promocion: 'p7',
@@ -22,14 +23,16 @@ const solicitudes: Solicitud[] = [
 ];
 describe('SolicitudService', () => {
   let service: SolicitudService;
-  const mockSolicitudRepositoryService = {
-    find: jest.fn().mockReturnValue(Promise.resolve(solicitudes)),
-    save: jest
+  const mockSolicitudModel = {
+    find: jest
+      .fn()
+      .mockReturnValue({ exec: () => Promise.resolve(solicitudes) }),
+    create: jest
       .fn()
       .mockImplementation((createSolicitudDto: CreateSolicitudDto) => {
         return {
-          id: 1,
-          ...CreateSolicitudDto,
+          _id: new SchemaTypes.ObjectId('2'),
+          ...createSolicitudDto,
         };
       }),
   };
@@ -38,8 +41,8 @@ describe('SolicitudService', () => {
       providers: [
         SolicitudService,
         {
-          provide: getRepositoryToken(Solicitud),
-          useValue: mockSolicitudRepositoryService,
+          provide: getModelToken(Solicitud.name),
+          useValue: mockSolicitudModel,
         },
       ],
     }).compile();
@@ -68,7 +71,7 @@ describe('SolicitudService', () => {
       horaFin: '14:00',
     };
     expect(await service.create(newSolicitud)).toMatchObject({
-      id: expect.any(Number),
+      _id: expect.any(SchemaTypes.ObjectId),
     });
   });
 });

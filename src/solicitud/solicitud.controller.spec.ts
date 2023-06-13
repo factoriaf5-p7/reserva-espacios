@@ -2,11 +2,12 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { SolicitudController } from './solicitud.controller';
 import { SolicitudService } from './solicitud.service';
 import { CreateSolicitudDto } from './dtos/create-solicitud.dto';
-import { Solicitud } from './entities/solicitud.entity';
+import { Solicitud } from './schemas/solicitud.schema';
+import { ObjectId, SchemaTypes } from 'mongoose';
 
-const solicitudes: Solicitud[] = [
+const solicitudes: Array<{ _id: ObjectId } & Solicitud> = [
   {
-    id: 1,
+    _id: new SchemaTypes.ObjectId('1'),
     nombre: 'Sara',
     cargo: 'formador',
     promocion: 'p7',
@@ -30,12 +31,12 @@ describe('SolicitudController', () => {
     create: jest
       .fn()
       .mockImplementation((createSolicitudDto: CreateSolicitudDto) => {
-        const newSpace = {
-          id: 2,
+        const newSolicitud = {
+          _id: new SchemaTypes.ObjectId('2'),
           ...createSolicitudDto,
         };
-        solicitudes.push(newSpace);
-        return Promise.resolve(newSpace);
+        solicitudes.push(newSolicitud);
+        return Promise.resolve(newSolicitud);
       }),
   };
   //ARRANGE -
@@ -72,7 +73,7 @@ describe('SolicitudController', () => {
       horaFin: '14:00',
     };
     expect(await controller.create(newSolicitud)).toMatchObject({
-      id: expect.any(Number),
+      _id: expect.any(SchemaTypes.ObjectId),
     });
   });
 });

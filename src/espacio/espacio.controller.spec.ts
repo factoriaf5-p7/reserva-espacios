@@ -2,10 +2,12 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { EspacioController } from './espacio.controller';
 import { EspacioService } from './espacio.service';
 import { CreateEspacioDto } from './dtos/create-espacio.dto';
+import { ObjectId, SchemaTypes } from 'mongoose';
+import { Espacio } from './schemas/espacio.schema';
 
-const espacios: any = [
+const espacios: Array<{ _id: ObjectId } & Espacio> = [
   {
-    id: 1,
+    _id: new SchemaTypes.ObjectId('1'),
     edificio: 'A',
     aula: '2C',
   },
@@ -19,7 +21,7 @@ describe('EspacioController', () => {
       .fn()
       .mockImplementation((createEspacioDto: CreateEspacioDto) => {
         const newSpace = {
-          id: 2,
+          _id: new SchemaTypes.ObjectId('2'),
           ...createEspacioDto,
         };
         espacios.push(newSpace);
@@ -51,7 +53,7 @@ describe('EspacioController', () => {
       aula: 'A',
     };
     expect(await controller.create(newSpace)).toMatchObject({
-      id: expect.any(Number),
+      _id: expect.any(SchemaTypes.ObjectId),
     });
   });
 });

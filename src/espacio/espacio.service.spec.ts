@@ -1,12 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { EspacioService } from './espacio.service';
-import { getRepositoryToken } from '@nestjs/typeorm';
-import { Espacio } from './entities/espacio.entity';
+// import { getRepositoryToken } from '@nestjs/typeorm';
+import { Espacio } from './schemas/espacio.schema';
 import { CreateEspacioDto } from './dtos/create-espacio.dto';
+import { getModelToken } from '@nestjs/mongoose';
+import { ObjectId, SchemaTypes } from 'mongoose';
 
-const espacios: any = [
+const espacios: Array<{ _id: ObjectId } & Espacio> = [
   {
-    id: 1,
+    _id: new SchemaTypes.ObjectId('1'),
     edificio: 'A',
     aula: '2C',
   },
@@ -14,22 +16,24 @@ const espacios: any = [
 
 describe('EspacioService', () => {
   let service: EspacioService;
-  const mockEspacioRepositoryService = {
-    find: jest.fn().mockReturnValue(Promise.resolve(espacios)),
-    save: jest.fn().mockImplementation((createEspacioDto: CreateEspacioDto) => {
-      return {
-        id: 1,
-        ...CreateEspacioDto,
-      };
-    }),
+  const mockEspacioModel = {
+    find: jest.fn().mockReturnValue({ exec: () => Promise.resolve(espacios) }),
+    create: jest
+      .fn()
+      .mockImplementation((createEspacioDto: CreateEspacioDto) => {
+        return {
+          _id: new SchemaTypes.ObjectId('1'),
+          ...createEspacioDto,
+        };
+      }),
   };
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         EspacioService,
         {
-          provide: getRepositoryToken(Espacio),
-          useValue: mockEspacioRepositoryService,
+          provide: getModelToken(Espacio.name),
+          useValue: mockEspacioModel,
         },
       ],
     }).compile();
@@ -49,7 +53,7 @@ describe('EspacioService', () => {
       aula: 'A',
     };
     expect(await service.create(newSpace)).toMatchObject({
-      id: expect.any(Number),
+      _id: expect.any(SchemaTypes.ObjectId),
     });
   });
 });

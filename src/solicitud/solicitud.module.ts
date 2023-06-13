@@ -1,11 +1,16 @@
 import { Module } from '@nestjs/common';
 import { SolicitudController } from './solicitud.controller';
 import { SolicitudService } from './solicitud.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Solicitud } from './entities/solicitud.entity';
+
+import { Solicitud, SolicitudSchema } from './schemas/solicitud.schema';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Solicitud])],
+  imports: [
+    MongooseModule.forFeature([
+      { name: Solicitud.name, schema: SolicitudSchema },
+    ]),
+  ],
   controllers: [SolicitudController],
   providers: [SolicitudService],
 })
