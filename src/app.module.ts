@@ -5,6 +5,7 @@ import { EspacioModule } from './espacio/espacio.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import databaseConfig from './config/database.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { SolicitudModule } from './solicitud/solicitud.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       useFactory: (configService: ConfigService) => configService.get('db'),
     }),
     EspacioModule,
+    SolicitudModule,
   ],
   controllers: [AppController],
   providers: [AppService],
