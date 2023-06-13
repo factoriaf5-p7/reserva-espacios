@@ -1,0 +1,11 @@
+POST http://localhost:3000/api/v1/espacio
+Content-Type: application/json
+
+{
+      "edificio": "B",
+      "aula": "A"
+}
+
+######
+
+GET http://localhost:3000/api/v1/espacio
