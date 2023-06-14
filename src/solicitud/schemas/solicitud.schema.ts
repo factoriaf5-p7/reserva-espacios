@@ -9,7 +9,10 @@ export type EspacioDocument = HydratedDocument<Solicitud>;
 export class Solicitud {
   // @ApiProperty({ example: 99 })
   // @PrimaryGeneratedColumn()
-  // id: number;
+  @ApiProperty({ example: 1 })
+  @Prop()
+  id: number;
+
   @ApiProperty({ example: 'Aitor Tilla' })
   @Prop()
   nombre: string;

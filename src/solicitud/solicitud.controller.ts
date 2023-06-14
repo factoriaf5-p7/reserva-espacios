@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { SolicitudService } from './solicitud.service';
-import { CreateSolicitudDto } from './dtos/create-solicitud.dto';
+import { CreateSolicitudDto } from './dto/create-solicitud.dto';
 
 @Controller('solicitud')
 export class SolicitudController {

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateSolicitudDto } from './dtos/create-solicitud.dto';
+import { CreateSolicitudDto } from './dto/create-solicitud.dto';
 // import { InjectRepository } from '@nestjs/typeorm';
 import { Solicitud } from './schemas/solicitud.schema';
 // import { Repository } from 'typeorm';

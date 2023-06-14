@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { EspacioController } from './espacio.controller';
 import { EspacioService } from './espacio.service';
-import { CreateEspacioDto } from './dtos/create-espacio.dto';
+import { CreateEspacioDto } from './dto/create-espacio.dto';
 import { ObjectId, SchemaTypes } from 'mongoose';
 import { Espacio } from './schemas/espacio.schema';
 

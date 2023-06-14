@@ -1,6 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateSolicitudDto {
+  @ApiProperty({ example: 1 })
+  id: number;
+
   @ApiProperty({ example: 'Sara' })
   nombre: string;
 

@@ -1,13 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { SolicitudService } from './solicitud.service';
 import { Solicitud } from './schemas/solicitud.schema';
-import { CreateSolicitudDto } from './dtos/create-solicitud.dto';
+import { CreateSolicitudDto } from './dto/create-solicitud.dto';
 import { ObjectId, SchemaTypes } from 'mongoose';
 import { getModelToken } from '@nestjs/mongoose';
 
 const solicitudes: Array<{ _id: ObjectId } & Solicitud> = [
   {
     _id: new SchemaTypes.ObjectId('1'),
+    id: 1,
     nombre: 'Sara',
     cargo: 'formador',
     promocion: 'p7',
@@ -58,6 +59,7 @@ describe('SolicitudService', () => {
   });
   it('should create an space and return a solicitud with and "{id: 2}" ', async () => {
     const newSolicitud = {
+      id: 2,
       nombre: 'John',
       cargo: 'trainer',
       promocion: 'p7',

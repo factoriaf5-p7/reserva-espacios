@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateEspacioDto } from './dtos/create-espacio.dto';
+import { CreateEspacioDto } from './dto/create-espacio.dto';
 // import { InjectRepository } from '@nestjs/typeorm';
 import { Espacio } from './schemas/espacio.schema';
 // import { Repository } from 'typeorm';
