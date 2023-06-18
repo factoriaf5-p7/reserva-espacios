@@ -1,0 +1,16 @@
+POST http://localhost:3000/api/v1/auth/signin
+Content-Type: application/json
+
+{
+  "email": "lisa@mail.com",
+  "password": "1234"
+}
+
+#########
+GET http://localhost:3000/api/v1/user/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxpc2FAbWFpbC5jb20iLCJpYXQiOjE2ODcxMDQ5NDcsImV4cCI6MTY4NzEwNTAwN30.PbdfLUAIVl7JdHRoYmFUWvcpH8Ke7efIKoMONCOgqwk
+
+###########3333
+
+GET http://localhost:3000/api/v1/user/profile
+Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxpc2FAbWFpbC5jb20iLCJpYXQiOjE2ODcxMDk0NTMsImV4cCI6MTY4NzEwOTUxM30.qqrcc7uhd78ry5ugpX_JuHbKZlpRPQF-kBurzLYAizk

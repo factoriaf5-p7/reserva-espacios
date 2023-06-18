@@ -7,6 +7,7 @@ import { Espacio } from './schemas/espacio.schema';
 
 const espacios: Array<{ _id: ObjectId } & Espacio> = [
   {
+    
     _id: new SchemaTypes.ObjectId('1'),
     edificio: 'A',
     aula: '2C',

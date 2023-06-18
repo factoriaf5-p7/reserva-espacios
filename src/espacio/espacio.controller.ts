@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { EspacioService } from './espacio.service';
-import { CreateEspacioDto } from './dtos/create-espacio.dto';
+import { CreateEspacioDto } from './dto/create-espacio.dto';
 
 @Controller('espacio')
 export class EspacioController {
