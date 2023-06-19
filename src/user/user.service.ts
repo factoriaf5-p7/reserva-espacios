@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { CreateUserDto, DeleteUserDto } from './dto';
 import { User } from './schemas/user.schema';
@@ -8,9 +8,15 @@ import { Model } from 'mongoose';
 export class UserService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
   async create(createUserDto: CreateUserDto) {
-    const createdUser = new this.userModel(createUserDto);
-    const res: any = await createdUser.save();
-    return res._doc;
+    try {
+        const createdUser = new this.userModel(createUserDto);
+        const res: any = await createdUser.save();
+        return res._doc;
+
+    } catch (error) {
+        if (error?.name === 'MongoError' && error.code === 11000) {
+            throw ConflictException;
+    }
   }
 
   findAll() {

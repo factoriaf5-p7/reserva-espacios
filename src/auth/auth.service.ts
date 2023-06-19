@@ -45,8 +45,7 @@ export class AuthService {
       const { password, ...rest } = createUser;
       return rest;
     } catch (error) {
-      if (error?.name === 'MongoError' && error.code === 11000) {
-        throw ConflictException;
+        throw error;
       }
     }
   }
