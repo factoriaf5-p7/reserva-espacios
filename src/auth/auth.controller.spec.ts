@@ -40,8 +40,8 @@ describe('AuthController', () => {
     const { accessToken } = await service.validateUser(req.body);
 
     const responseMock = {
-      cookie: jest.fn().mockImplementation((name, val, opt) => responseMock),
-      status: jest.fn().mockImplementation((statusCode) => responseMock),
+      cookie: jest.fn().mockImplementation(() => responseMock),
+      status: jest.fn().mockImplementation(() => responseMock),
       send: jest.fn(),
     } as unknown as Response;
 
