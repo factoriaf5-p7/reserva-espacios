@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { RegisterDto } from './dtos/register.dto';
 import { compare, genSalt, hash } from 'bcrypt';
-import { UserService } from 'src/user/user.service';
+import { UserService } from '../user/user.service';
 import { LoginDto } from './dtos/login.dto';
 import { JwtService } from '@nestjs/jwt';
 @Injectable()
