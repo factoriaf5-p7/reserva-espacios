@@ -13,10 +13,13 @@ export class UserService {
     try {
       return this.userRepository.save(createUserDto);
     } catch (error) {
-    if(error)
-      console.log(error);
+      if (error) console.log(error);
     }
 
     // return this.userRepository.save(createUserDto);
+  }
+  findOneByEmail(email: string) {
+    return this.userRepository.findOne({ where: { email } });
+    //mongoose this.userModel.findOne({email})
   }
 }

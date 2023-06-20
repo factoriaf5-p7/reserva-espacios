@@ -2,10 +2,12 @@ import {
   ConflictException,
   Injectable,
   InternalServerErrorException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { RegisterDto } from './dtos/register.dto';
-import { genSalt, hash } from 'bcrypt';
+import { compare, genSalt, hash } from 'bcrypt';
 import { UserService } from 'src/user/user.service';
+import { LoginDto } from './dtos/login.dto';
 @Injectable()
 export class AuthService {
   constructor(private userService: UserService) {}
@@ -17,10 +19,13 @@ export class AuthService {
       throw new InternalServerErrorException();
     }
   }
+  passwordVerify(password: string, hash: string) {
+    return compare(password, hash);
+  }
   async register(user: RegisterDto) {
     try {
       const hashedPassword = await this.encrypt(user.password);
-    //   console.log(user, hashedPassword);
+      //   console.log(user, hashedPassword);
       const createUser = await this.userService.create({
         ...user,
         password: hashedPassword,
@@ -35,5 +40,19 @@ export class AuthService {
       }
     }
     // return 'hello from the auth service';
+  }
+  async validateUser(loggedUser: LoginDto) {
+    try {
+      const user = await this.userService.findOneByEmail(loggedUser.email);
+      //verificar la password
+      if (await this.passwordVerify(loggedUser.password, user.password))
+        return {
+          accessToken: 'esto es un token', //to-do: generación del token
+        };
+
+      throw new UnauthorizedException();
+    } catch (error) {
+      throw error;
+    }
   }
 }
