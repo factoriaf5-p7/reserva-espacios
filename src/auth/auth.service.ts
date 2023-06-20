@@ -8,9 +8,13 @@ import { RegisterDto } from './dtos/register.dto';
 import { compare, genSalt, hash } from 'bcrypt';
 import { UserService } from 'src/user/user.service';
 import { LoginDto } from './dtos/login.dto';
+import { JwtService } from '@nestjs/jwt';
 @Injectable()
 export class AuthService {
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private jwtService: JwtService,
+  ) {}
   async encrypt(password: string): Promise<string> {
     try {
       const salt = await genSalt(10);
@@ -47,7 +51,9 @@ export class AuthService {
       //verificar la password
       if (await this.passwordVerify(loggedUser.password, user.password))
         return {
-          accessToken: 'esto es un token', //to-do: generación del token
+          accessToken: await this.jwtService.signAsync({
+            email: loggedUser.email,
+          }), //'esto es un token', //to-do: generación del token
         };
 
       throw new UnauthorizedException();
