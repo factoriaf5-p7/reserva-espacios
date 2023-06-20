@@ -23,7 +23,7 @@ export class AuthService {
       throw new InternalServerErrorException();
     }
   }
-  passwordVerify(password: string, hash: string) {
+  async passwordVerify(password: string, hash: string) {
     return compare(password, hash);
   }
   async register(user: RegisterDto) {

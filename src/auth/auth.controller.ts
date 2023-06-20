@@ -12,7 +12,7 @@ export class AuthController {
     return this.authService.register(user);
   }
   @Post('signin')
-  //response json con el token
+  // response json con el token
   // async signin(@Body() user: LoginDto) {
   // return this.authService.validateUser(user);
   // response con cookie
@@ -25,6 +25,7 @@ export class AuthController {
         sameSite: 'lax',
         expires: new Date(Date.now() + 2 * 24 * 60 * 1000),
       })
+      .status(200)
       .send({ status: 'ok' });
   }
 }

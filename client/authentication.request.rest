@@ -1,1 +1,10 @@
 POST http://localhost:3000/api/v1/auth/signup
+
+########33333
+POST http://localhost:3000/api/v1/auth/signin
+Content-Type: application/json
+
+{
+    "email":"otro@mail.com",
+    "password":"1234"
+}
