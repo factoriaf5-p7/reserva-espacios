@@ -12,10 +12,12 @@ export class AuthController {
     return this.authService.register(user);
   }
   @Post('signin')
-  // response json con el token
+  /* 1. response json con el token */
+
   // async signin(@Body() user: LoginDto) {
   // return this.authService.validateUser(user);
-  // response con cookie
+
+  /* 2. response con cookie */
   async signin(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
     const { accessToken } = await this.authService.validateUser(req.body);
     res

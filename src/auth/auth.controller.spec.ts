@@ -1,13 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { LoginDto } from './dtos/login.dto';
+// import { LoginDto } from './dtos/login.dto';
 import { Request, Response } from 'express';
 describe('AuthController', () => {
   let controller: AuthController;
   let service: AuthService;
   const mockAuthService = {
-    // register:jest.fn(),
     validateUser: jest
       .fn()
       .mockReturnValue(Promise.resolve({ accessToken: 'this is a token' })),
@@ -29,14 +28,14 @@ describe('AuthController', () => {
     expect(controller).toBeDefined();
   });
   it('should invoke cookie method with a token when a valid user is provided', async () => {
-    const req: any = {
+    const req = {
       body: {
         user: {
           email: 'test@mail.com',
           password: '1234',
         },
       },
-    };
+    } as Request;
     const { accessToken } = await service.validateUser(req.body);
 
     const responseMock = {
