@@ -21,7 +21,6 @@ export class AuthService {
     try {
       const hashedPassword = await this.encrypt(user.password);
     //   console.log(user, hashedPassword);
-
       const createUser = await this.userService.create({
         ...user,
         password: hashedPassword,

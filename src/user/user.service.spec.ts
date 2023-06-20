@@ -6,10 +6,12 @@ import { User } from './entities/user.entity';
 describe('UserService', () => {
   let service: UserService;
   const mockUserRepository = {
-    save: jest.fn().mockImplementation((user) => ({
-      id: 1,
-      ...user,
-    })),
+    save: jest.fn().mockImplementation((user) =>
+      Promise.resolve({
+        id: 1,
+        ...user,
+      }),
+    ),
   };
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -29,12 +31,13 @@ describe('UserService', () => {
     expect(service).toBeDefined();
   });
 
-  it('should return a user without password when createUserDto is sent', async () => {
+  it('should return a user with id when createUserDto is sent', async () => {
     const createUserDTO = {
       name: 'lisa',
       email: 'lisa@mail.com',
       password: '1234',
     };
+
     expect(await service.create(createUserDTO)).toMatchObject({
       id: expect.any(Number),
     });

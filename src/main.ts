@@ -7,7 +7,8 @@ async function bootstrap() {
   //http://localhost:3000/api/v1/
   app.setGlobalPrefix('api/v1');
   //habilitamos cors a nivel global de nuestra api.
-  const options = new DocumentBuilder().setTitle('Reserva Espacios')
+  const options = new DocumentBuilder()
+    .setTitle('Reserva Espacios')
     .setDescription('descripción')
     .setVersion('1.0')
     .build();
