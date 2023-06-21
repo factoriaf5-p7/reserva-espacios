@@ -26,3 +26,17 @@
 
 ## Autenticación
 [![](https://mermaid.ink/img/pako:eNp9U11LwzAU_SshTx10fyAPe3EgiKKwqS8BuabXGdbe1Jt0ImP_3SStbm5BCqHcc07O_cpeGtegVNLjx4BkcGlhw9Bp0tQDB2tsDxSEaS1S-Bu7dRtLV44Cu7ZFLoAr5J01-Bd5gtY2EKwrw2u3RbpGQobguEh59HgExszEfLE4T0iJ3vlQYQe2rXvw_tNxM9N0RjtKpzuV2I0pYjKqhniojC_X9z_yiZq1J-koscGQVdk1sk9AMb90YgwDk0gehZsvWqWEcV1sBT5M5fiK0-B8qCMPXsFj9LyQZeeiceABC8bFIaTicgRvnte_BRap_5QaEv_csji9guB0akkzDj9Rfe_IY7UHY9D7lyw6zNIaj5-sZYccc27isu81CaFleMcOtVTxtwHeaqnpEHkwBLf6IiNV6k4thz7twvQwpHqD1scoNjbWeze-nvyIDt_z5zl2?type=png)](https://mermaid.live/edit#pako:eNp9U11LwzAU_SshTx10fyAPe3EgiKKwqS8BuabXGdbe1Jt0ImP_3SStbm5BCqHcc07O_cpeGtegVNLjx4BkcGlhw9Bp0tQDB2tsDxSEaS1S-Bu7dRtLV44Cu7ZFLoAr5J01-Bd5gtY2EKwrw2u3RbpGQobguEh59HgExszEfLE4T0iJ3vlQYQe2rXvw_tNxM9N0RjtKpzuV2I0pYjKqhniojC_X9z_yiZq1J-koscGQVdk1sk9AMb90YgwDk0gehZsvWqWEcV1sBT5M5fiK0-B8qCMPXsFj9LyQZeeiceABC8bFIaTicgRvnte_BRap_5QaEv_csji9guB0akkzDj9Rfe_IY7UHY9D7lyw6zNIaj5-sZYccc27isu81CaFleMcOtVTxtwHeaqnpEHkwBLf6IiNV6k4thz7twvQwpHqD1scoNjbWeze-nvyIDt_z5zl2)
+
+## Autorización
+
+Una usuaria logada quiere acceder a una ruta protegida:
+1. Envía petición al end-point protegido con el token informado. `GET http://localhost:3000/user/:id/profile`
+2. Antes de que llegue la petición al controller, la petición tiene que atravesar un filtro (middleware) --> en Nest.js se llama **GUARD**
+3. El authGuard comprueba que hay un token
+4. El authGuard desencripta el token y obtiene el payload (id, email)
+5. El authGuard realiza una consulta con el email o el id del user
+6. El authGuard compara si el id de la bbdd es igual al id del parámetro(:id) deja pasar
+   (en el caso de autorización por rol comprobaría que el usuario tiene el rol adecuado)
+7. La petición llega al userService para obtener datos del profile
+8. UserService devuelve los datos al controller
+9.  EL controller devuelve la info al client.
