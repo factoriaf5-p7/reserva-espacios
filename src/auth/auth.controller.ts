@@ -14,21 +14,21 @@ export class AuthController {
   @Post('signin')
   /* 1. response json con el token */
 
-  // async signin(@Body() user: LoginDto) {
-  // return this.authService.validateUser(user);
-
-  /* 2. response con cookie */
-  async signin(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
-    const { accessToken } = await this.authService.validateUser(req.body);
-    res
-      .cookie('access_token', accessToken, {
-        httpOnly: true,
-        secure: false,
-        sameSite: 'lax',
-        // expires: new Date(Date.now() + 2 * 24 * 60 * 1000),
-      })
-      .status(200)
-      .send({ status: 'ok' });
+  async signin(@Body() user: LoginDto) {
+  return this.authService.validateUser(user);
   }
+  /* 2. response con cookie */
+  // async signin(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
+  //   const { accessToken } = await this.authService.validateUser(req.body);
+  //   res
+  //     .cookie('access_token', accessToken, {
+  //       httpOnly: true,
+  //       secure: false,
+  //       sameSite: 'lax',
+  //       // expires: new Date(Date.now() + 2 * 24 * 60 * 1000),
+  //     })
+  //     .status(200)
+  //     .send({ status: 'ok' });
+  // }
 }
 

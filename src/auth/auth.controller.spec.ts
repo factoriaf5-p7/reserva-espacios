@@ -27,7 +27,7 @@ describe('AuthController', () => {
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
-  it('should invoke cookie method with a token when a valid user is provided', async () => {
+  it('should return an accessToken when a valid user is provided', async () => {
     const req = {
       body: {
         user: {
@@ -36,32 +36,45 @@ describe('AuthController', () => {
         },
       },
     } as Request;
-
-    const { accessToken } = await service.validateUser(req.body);
-
-    const responseMock = {
-      cookie: jest.fn().mockImplementation(() => responseMock),
-      status: jest.fn().mockImplementation(() => responseMock),
-      send: jest.fn(),
-    } as unknown as Response;
-
-    await controller.signin(req, responseMock);
-
-    // expect(responseMock.cookie).toHaveBeenCalled();
-    // expect(responseMock.status).toHaveBeenCalled();
-    // expect(responseMock.send).toHaveBeenCalled();
-
-    expect(responseMock.cookie).toHaveBeenCalledWith(
-      'access_token',
-      accessToken,
-      {
-        httpOnly: true,
-        secure: false,
-        sameSite: 'lax',
-        // expires: new Date(Date.now() + 2 * 24 * 60 * 1000),
-      },
-    );
-    expect(responseMock.status).toHaveBeenCalledWith(200);
-    expect(responseMock.send).toHaveBeenCalledWith({ status: 'ok' });
+    expect(await controller.signin(req.body)).toMatchObject({
+      accessToken: 'this is a token',
+    });
   });
+  // it('should invoke cookie method with a token when a valid user is provided', async () => {
+  //   const req = {
+  //     body: {
+  //       user: {
+  //         email: 'test@mail.com',
+  //         password: '1234',
+  //       },
+  //     },
+  //   } as Request;
+
+  //   const { accessToken } = await service.validateUser(req.body);
+
+  //   const responseMock = {
+  //     cookie: jest.fn().mockImplementation(() => responseMock),
+  //     status: jest.fn().mockImplementation(() => responseMock),
+  //     send: jest.fn(),
+  //   } as unknown as Response;
+
+  //   await controller.signin(req, responseMock);
+
+  //   // expect(responseMock.cookie).toHaveBeenCalled();
+  //   // expect(responseMock.status).toHaveBeenCalled();
+  //   // expect(responseMock.send).toHaveBeenCalled();
+
+  //   expect(responseMock.cookie).toHaveBeenCalledWith(
+  //     'access_token',
+  //     accessToken,
+  //     {
+  //       httpOnly: true,
+  //       secure: false,
+  //       sameSite: 'lax',
+  //       // expires: new Date(Date.now() + 2 * 24 * 60 * 1000),
+  //     },
+  //   );
+  //   expect(responseMock.status).toHaveBeenCalledWith(200);
+  //   expect(responseMock.send).toHaveBeenCalledWith({ status: 'ok' });
+  // });
 });
