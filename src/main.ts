@@ -11,6 +11,15 @@ async function bootstrap() {
     .setTitle('Reserva Espacios')
     .setDescription('descripción')
     .setVersion('1.0')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        in: 'header',
+      },
+      'access-token',
+    )
     .build();
 
   const document = SwaggerModule.createDocument(app, options);

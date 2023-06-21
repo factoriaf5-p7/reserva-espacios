@@ -33,10 +33,11 @@ Una usuaria logada quiere acceder a una ruta protegida:
 1. Envía petición al end-point protegido con el token informado. `GET http://localhost:3000/user/:id/profile`
 2. Antes de que llegue la petición al controller, la petición tiene que atravesar un filtro (middleware) --> en Nest.js se llama **GUARD**
 3. El authGuard comprueba que hay un token
-4. El authGuard desencripta el token y obtiene el payload (id, email)
-5. El authGuard realiza una consulta con el email o el id del user
-6. El authGuard compara si el id de la bbdd es igual al id del parámetro(:id) deja pasar
+4. El authGuard desencripta el token e inyecta el payload (id, email) en la request
+5. El authGuard deja pasar
+6. El userService realiza una consulta con el email o el id del user
+7. El userService compara si el id de la bbdd es igual al id del parámetro(:id) deja pasar
    (en el caso de autorización por rol comprobaría que el usuario tiene el rol adecuado)
-7. La petición llega al userService para obtener datos del profile
-8. UserService devuelve los datos al controller
-9.  EL controller devuelve la info al client.
+8. El userService obtiene los datos del profile
+9. El userService devuelve los datos al controller
+10. EL controller devuelve la info al client.

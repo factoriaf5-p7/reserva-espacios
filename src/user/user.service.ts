@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
@@ -21,5 +21,18 @@ export class UserService {
   findOneByEmail(email: string) {
     return this.userRepository.findOne({ where: { email } });
     //mongoose this.userModel.findOne({email})
+  }
+  async findOneById(id: number, userProfile: any) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password, ...user } = await this.userRepository.findOne({
+      where: { email: userProfile.email },
+    });
+
+    // console.log(user.id, id);
+    if (id === user.id) {
+      return user;
+    } else {
+      throw new UnauthorizedException();
+    }
   }
 }
