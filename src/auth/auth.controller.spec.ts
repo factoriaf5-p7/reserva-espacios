@@ -36,6 +36,7 @@ describe('AuthController', () => {
         },
       },
     } as Request;
+
     const { accessToken } = await service.validateUser(req.body);
 
     const responseMock = {
@@ -44,22 +45,23 @@ describe('AuthController', () => {
       send: jest.fn(),
     } as unknown as Response;
 
-    const spyCookieResponse = jest.spyOn(responseMock, 'cookie');
-    const spySendResponse = jest.spyOn(responseMock, 'send');
-
     await controller.signin(req, responseMock);
 
-    expect(spyCookieResponse).toHaveBeenCalledWith(
+    // expect(responseMock.cookie).toHaveBeenCalled();
+    // expect(responseMock.status).toHaveBeenCalled();
+    // expect(responseMock.send).toHaveBeenCalled();
+
+    expect(responseMock.cookie).toHaveBeenCalledWith(
       'access_token',
       accessToken,
       {
         httpOnly: true,
         secure: false,
         sameSite: 'lax',
-        expires: new Date(Date.now() + 2 * 24 * 60 * 1000),
+        // expires: new Date(Date.now() + 2 * 24 * 60 * 1000),
       },
     );
-
-    expect(spySendResponse).toHaveBeenCalledWith({ status: 'ok' });
+    expect(responseMock.status).toHaveBeenCalledWith(200);
+    expect(responseMock.send).toHaveBeenCalledWith({ status: 'ok' });
   });
 });
