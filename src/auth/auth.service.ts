@@ -45,10 +45,10 @@ export class AuthService {
       const { password, ...rest } = createUser;
       return rest;
     } catch (error) {
-        throw error;
-      }
+      throw error;
     }
   }
+
   async validateUser(loggedUser: LoginDto) {
     try {
       const user = (await this.userService.findByEmail(

@@ -9,16 +9,15 @@ export class UserService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
   async create(createUserDto: CreateUserDto) {
     try {
-        const createdUser = new this.userModel(createUserDto);
-        const res: any = await createdUser.save();
-        return res._doc;
-
+      const createdUser = new this.userModel(createUserDto);
+      const res: any = await createdUser.save();
+      return res._doc;
     } catch (error) {
-        if (error?.name === 'MongoError' && error.code === 11000) {
-            throw ConflictException;
+      if (error?.name === 'MongoError' && error.code === 11000) {
+        throw ConflictException;
+      }
     }
   }
-
   findAll() {
     return this.userModel.find().exec();
   }

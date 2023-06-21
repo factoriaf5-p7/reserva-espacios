@@ -13,10 +13,15 @@ async function bootstrap() {
     .setTitle('Reserva Espacios')
     .setDescription('API REST para reservar espacios con MongoDB')
     .setVersion('1.0')
-    .addBearerAuth(
-      { type: 'http', scheme: 'bearer', bearerFormat: 'JWT', in: 'header' },
-      'access-token',
-    )
+    // .addBearerAuth(
+    //   { type: 'http', scheme: 'bearer', bearerFormat: 'JWT', in: 'header' },
+    //   'access-token',
+    // )
+    .addCookieAuth('access_token', {
+      type: 'http',
+      in: 'header',
+      scheme: 'Bearer',
+    })
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('docs', app, document);
