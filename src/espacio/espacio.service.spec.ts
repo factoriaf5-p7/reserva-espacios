@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { EspacioService } from './espacio.service';
 // import { getRepositoryToken } from '@nestjs/typeorm';
 import { Espacio } from './schemas/espacio.schema';
-import { CreateEspacioDto } from './dtos/create-espacio.dto';
+import { CreateEspacioDto } from './dto/create-espacio.dto';
 import { getModelToken } from '@nestjs/mongoose';
 import { ObjectId, SchemaTypes } from 'mongoose';
 
