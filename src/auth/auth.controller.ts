@@ -13,9 +13,8 @@ export class AuthController {
   }
   @Post('signin')
   /* 1. response json con el token */
-
   async signin(@Body() user: LoginDto) {
-  return this.authService.validateUser(user);
+    return this.authService.validateUser(user);
   }
   /* 2. response con cookie */
   // async signin(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
@@ -31,4 +30,3 @@ export class AuthController {
   //     .send({ status: 'ok' });
   // }
 }
-

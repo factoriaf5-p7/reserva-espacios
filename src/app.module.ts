@@ -8,7 +8,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { SolicitudModule } from './solicitud/solicitud.module';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
-// import authconfig from './auth/constants/authconfig';
 
 @Module({
   imports: [
