@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UserService } from './user.service';
 import { getModelToken } from '@nestjs/mongoose';
 import { User } from './schemas/user.schema';
-import {  Types } from 'mongoose';
+import { Types } from 'mongoose';
 import { CreateUserDto } from './dto';
 
 describe('UserService', () => {
@@ -10,9 +10,8 @@ describe('UserService', () => {
   const mockModel = {
     create: jest.fn().mockImplementation((createUserDto) =>
       Promise.resolve({
-        _id: new Types.ObjectId('ASÑLDFK'),
-        name: createUserDto.name,
-        email: createUserDto.email,
+        _id: new Types.ObjectId(1),
+        ...createUserDto,
       }),
     ),
   };
@@ -21,7 +20,7 @@ describe('UserService', () => {
       providers: [
         UserService,
         {
-          provide: getModelToken(User.name),
+          provide: getModelToken('User'),
           useValue: mockModel,
         },
       ],
@@ -45,7 +44,7 @@ describe('UserService', () => {
     const result = await service.create(createdUserDto);
     console.log(result);
     expect(result).toMatchObject({
-      _id: expect.any,
+      _id: expect.any(Types.ObjectId),
     });
   });
 });

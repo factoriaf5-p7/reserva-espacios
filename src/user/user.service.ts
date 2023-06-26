@@ -7,18 +7,16 @@ import { Model } from 'mongoose';
 @Injectable()
 export class UserService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
-  async create(createUserDto: CreateUserDto) {
-    try {
-      const { _id, name, email } = await this.userModel.create(createUserDto);
-console.log(_id,name,email);
 
-      return { _id, name, email };
-    } catch (error) {
-      if (error?.name === 'MongoError' && error.code === 11000) {
-        throw ConflictException;
-      }
-    }
+  create(createUserDto: CreateUserDto) {
+    return this.userModel.create(createUserDto);
+    // } catch (error) {
+    //   if (error?.name === 'MongoError' && error.code === 11000) {
+    //     throw ConflictException;
+    //   }
+    // }
   }
+
   findAll() {
     return this.userModel.find().exec();
   }

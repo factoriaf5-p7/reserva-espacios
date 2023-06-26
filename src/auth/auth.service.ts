@@ -16,7 +16,7 @@ export class AuthService {
   constructor(
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
-  ) { }
+  ) {}
 
   async encrypt(password: string) {
     try {
@@ -37,13 +37,13 @@ export class AuthService {
   async register(registrationData: RegisterDto) {
     try {
       const hashedPassword = await this.encrypt(registrationData.password);
-      const createUser = await this.userService.create({
+      const { _id, email, name } = await this.userService.create({
         ...registrationData,
         password: hashedPassword,
       });
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       // const { password, ...rest } = createUser;
-      return createUser;
+      return { _id, email, name } ;
     } catch (error) {
       throw error;
     }
