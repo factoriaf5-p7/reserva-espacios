@@ -5,10 +5,10 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { hash, genSalt, compare } from 'bcrypt';
-import { UserService } from 'src/user/user.service';
+import { UserService } from '../user/user.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
-import { User } from 'src/user/schemas/user.schema';
+import { User } from '../user/schemas/user.schema';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
@@ -16,7 +16,7 @@ export class AuthService {
   constructor(
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
-  ) {}
+  ) { }
 
   async encrypt(password: string) {
     try {
@@ -42,8 +42,8 @@ export class AuthService {
         password: hashedPassword,
       });
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { password, ...rest } = createUser;
-      return rest;
+      // const { password, ...rest } = createUser;
+      return createUser;
     } catch (error) {
       throw error;
     }
