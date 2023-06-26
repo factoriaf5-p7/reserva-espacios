@@ -5,12 +5,10 @@ import { User } from './schemas/user.schema';
 import {  Types } from 'mongoose';
 import { CreateUserDto } from './dto';
 
-class MockModel {}
-
 describe('UserService', () => {
   let service: UserService;
   const mockModel = {
-    create: jest.fn().mockImplementation((createUserDto: CreateUserDto) =>
+    create: jest.fn().mockImplementation((createUserDto) =>
       Promise.resolve({
         _id: new Types.ObjectId('ASÑLDFK'),
         name: createUserDto.name,
