@@ -6,8 +6,6 @@ import { AuthGuard } from '../src/auth/guards/auth.guard';
 import { Espacio } from '../src/espacio/schemas/espacio.schema';
 import { CreateEspacioDto } from '../src/espacio/dto/create-espacio.dto';
 import { getModelToken } from '@nestjs/mongoose';
-import { EspacioService } from '../src/espacio/espacio.service';
-import { AppModule } from '../src/app.module';
 import { EspacioModule } from '../src/espacio/espacio.module';
 
 const espacios: Array<{ _id: mongoose.Types.ObjectId } & Espacio> = [
@@ -24,25 +22,18 @@ describe('Espacio (e2e)', () => {
     find: jest.fn().mockImplementationOnce(() => ({
       exec: jest.fn().mockResolvedValue({ espacios }),
     })),
-    // create: jest
-    //   .fn()
-    //   .mockImplementation((createEspacioDto: CreateEspacioDto) => {
-    //     return {
-    //       _id,
-    //       ...createEspacioDto,
-    //     };
-    // }),
+    create: jest
+      .fn()
+      .mockImplementation((createEspacioDto: CreateEspacioDto) => {
+        return {
+          _id: new mongoose.Types.ObjectId(),
+          ...createEspacioDto,
+        };
+      }),
   };
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [EspacioModule],
-      // providers: [
-      //   EspacioService,
-      //   {
-      //     provide: getModelToken(Espacio.name),
-      //     useValue: mockEspacioModel,
-      //   },
-      // ],
     })
       .overrideGuard(AuthGuard)
       .useValue('')
@@ -54,12 +45,6 @@ describe('Espacio (e2e)', () => {
     await app.init();
   });
 
-  // it('/ (GET)', () => {
-  //   return request(app.getHttpServer())
-  //     .get('/')
-  //     .expect(200)
-  //     .expect('Hello World!');
-  // });
   it('/espacio (GET)', async () => {
     const response = await request(app.getHttpServer()).get('/espacio');
 
@@ -68,4 +53,17 @@ describe('Espacio (e2e)', () => {
       JSON.stringify(espacios),
     );
   });
+  it('(POST) should save one Espacio and return espacio with id', async () => {
+    const response = await request(app.getHttpServer()).post('/espacio').send({
+      edificio: 'B',
+      aula: 'B',
+    });
+
+    expect(response.statusCode).toBe(201);
+    expect(response.body).toMatchObject({
+      _id: expect.any(String),
+    });
+  });
+
+  afterAll(async () => app.close());
 });

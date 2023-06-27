@@ -1,6 +1,5 @@
 import {
   Injectable,
-  ConflictException,
   InternalServerErrorException,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -21,12 +20,9 @@ export class AuthService {
   async encrypt(password: string) {
     try {
       const salt = await genSalt(10);
-
-      const result = await hash(password, salt);
-
-      return result;
+      return await hash(password, salt);
     } catch (error) {
-      throw new InternalServerErrorException();
+      throw new Error('encripting password failed')
     }
   }
 
