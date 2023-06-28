@@ -12,6 +12,7 @@ describe('UserService', () => {
         ...user,
       }),
     ),
+    findOne: jest.fn(),
   };
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
