@@ -1,10 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { UserModule } from '../src/user/user.module';
-import { getRepositoryToken } from '@nestjs/typeorm';
-import { User } from '../src/user/entities/user.entity';
-import { AuthGuard } from '../src/auth/guards/auth.guard';
+import { getModelToken } from '@nestjs/mongoose';
 import { AppModule } from '../src/app.module';
 
 describe('UserController (e2e)', () => {
@@ -36,7 +33,7 @@ describe('UserController (e2e)', () => {
     })
       // .overrideGuard(AuthGuard)
       // .useValue('')
-      .overrideProvider(getRepositoryToken(User))
+      .overrideProvider(getModelToken('User'))
       .useValue(mockRepository)
       .compile();
 
@@ -50,11 +47,11 @@ describe('UserController (e2e)', () => {
       .get('/user/1/profile')
       .set(
         'Authorization',
-        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiZW1haWwiOiJyYXVsQG1haWwuY29tIiwiaWF0IjoxNTE2MjM5MDIyfQ.OJLOasCxmAdXUHYVzsEl66Bes7WUYQoWod9i6iucl0I',
+        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiZW1haWwiOiJtaUBtYWlsLmNvbSIsImlhdCI6MTUxNjIzOTAyMn0.jRjKTF7eCKL9BHhnWwij5LKbXdkf87UoVdVEP_7Mx8Y',
       );
     // console.log(res);
 
     expect(res.statusCode).toBe(200);
-    expect(JSON.stringify(res.body)).toBe(`{"id":1,"email":"raul@mail.com"}`);
+    expect(JSON.stringify(res.body)).toBe(`{"id":1,"email":"mi@mail.com"}`);
   });
 });

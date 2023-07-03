@@ -22,7 +22,7 @@ export class AuthService {
       const salt = await genSalt(10);
       return await hash(password, salt);
     } catch (error) {
-      throw new Error('encripting password failed')
+      throw new Error('encripting password failed');
     }
   }
 
@@ -39,7 +39,7 @@ export class AuthService {
       });
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       // const { password, ...rest } = createUser;
-      return { _id, email, name } ;
+      return { _id, email, name };
     } catch (error) {
       throw error;
     }

@@ -8,6 +8,7 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { ReservaModule } from './reserva/reserva.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { DateToolService } from './utils/date-tool.service';
 
 @Module({
   imports: [
@@ -17,8 +18,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
         uri: configService.get<string>('MONGODB_URI'), //'mongodb://localhost:27017/espacios',
+        dbName: 'espacios',
       }),
       inject: [ConfigService],
+
     }),
     EspacioModule,
     SolicitudModule,
@@ -29,4 +32,4 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}

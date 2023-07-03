@@ -12,5 +12,6 @@ import { MongooseModule } from '@nestjs/mongoose';
   ],
   controllers: [EspacioController],
   providers: [EspacioService],
+  exports: [EspacioService],
 })
 export class EspacioModule {}

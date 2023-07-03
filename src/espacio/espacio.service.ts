@@ -4,7 +4,7 @@ import { CreateEspacioDto } from './dto/create-espacio.dto';
 import { Espacio } from './schemas/espacio.schema';
 // import { Repository } from 'typeorm';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 
 @Injectable()
 export class EspacioService {
@@ -21,5 +21,9 @@ export class EspacioService {
     return this.espacioModel.create(createEspacioDto);
     // return this.espacioRepository.save(createEspacioDto);
     // return 'post del espacio';
+  }
+
+  async findOne(id: string) {
+    return this.espacioModel.findOne({ _id: id });
   }
 }

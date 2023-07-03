@@ -7,10 +7,10 @@ Content-Type: application/json
 }
 
 #########
-GET http://localhost:3000/api/v1/user/profile
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxpc2FAbWFpbC5jb20iLCJpYXQiOjE2ODcxMDQ5NDcsImV4cCI6MTY4NzEwNTAwN30.PbdfLUAIVl7JdHRoYmFUWvcpH8Ke7efIKoMONCOgqwk
+GET http://localhost:3000/api/v1/user/1/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxpc2FAbWFpbC5jb20iLCJpYXQiOjE2ODc5NjUwMDYsImV4cCI6MTY4Nzk2NTA2Nn0.P4AdCvfEWtkzILu4IfF9Li27peCHTqNy6K9Y8MVPnuU
 
 ###########3333
 
-GET http://localhost:3000/api/v1/user/profile
-Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxpc2FAbWFpbC5jb20iLCJpYXQiOjE2ODcxMDk0NTMsImV4cCI6MTY4NzEwOTUxM30.qqrcc7uhd78ry5ugpX_JuHbKZlpRPQF-kBurzLYAizk
+GET http://localhost:3000/api/v1/user/1/profile
+Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxpc2FAbWFpbC5jb20iLCJpYXQiOjE2ODc5NjUzNDMsImV4cCI6MTY4Nzk2NTQwM30.woiOJBCmi6kqanQKQAE0tjQeVBLlDhNAzok5BVGyOX4

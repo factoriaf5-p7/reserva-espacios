@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { SolicitudService } from './solicitud.service';
 import { Solicitud } from './schemas/solicitud.schema';
-import { CreateSolicitudDto } from './dto/create-solicitud.dto';
+import { CreateSolicitudDto } from '../reserva/dtos/create-solicitud.dto';
 import { ObjectId, SchemaTypes } from 'mongoose';
 import { getModelToken } from '@nestjs/mongoose';
 

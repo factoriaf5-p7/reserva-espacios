@@ -13,5 +13,6 @@ import { MongooseModule } from '@nestjs/mongoose';
   ],
   controllers: [SolicitudController],
   providers: [SolicitudService],
+  exports: [SolicitudService],
 })
 export class SolicitudModule {}

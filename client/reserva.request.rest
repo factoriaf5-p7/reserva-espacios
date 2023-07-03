@@ -1,0 +1,37 @@
+POST http://localhost:3000/api/v1/auth/signup
+Content-Type: application/json
+
+{
+  "name":"lisa",
+  "email": "lisa@mail.com",
+  "password": "1234"
+}
+
+#########333
+POST http://localhost:3000/api/v1/auth/signin
+Content-Type: application/json
+
+{
+  "email": "lisa@mail.com",
+  "password": "1234"
+}
+
+#########
+
+POST http://localhost:3000/api/v1/reserva
+Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxpc2FAbWFpbC5jb20iLCJpYXQiOjE2ODgzNzczNDUsImV4cCI6MTY4ODM3NzQwNX0.j0ai2a_fNvob5eNvdGOztXXOTw9R2TLYzau_bS--VqI
+Content-Type: application/json
+
+{
+  "descripcion": "Reseva para ...",
+  "actividad": "Masterclass",
+  "espacio":"64a1d756beee137a563b71d8",
+  "nombreActividad":"Base de datos",
+  "inicio":"08-07-2023 19:30",
+  "fin":"10-07-2023 20:30"
+}
+
+######
+
+GET http://localhost:3000/api/v1/reserva
+Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxpc2FAbWFpbC5jb20iLCJpYXQiOjE2ODgyOTM3NjEsImV4cCI6MTY4ODI5MzgyMX0.VCaUFpMfm_XrQ-Man650hxUNjxdEP7AOLyfNS5QdxLc
